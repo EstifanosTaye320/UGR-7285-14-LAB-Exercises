@@ -14,3 +14,13 @@ void getKeysAndValues(Map<Object, Object> objMap) {
   print(objMap.keys);
   print(objMap.values);
 }
+
+List<Ty> removeDuplicates<Ty>(List<Ty> myList) {
+  List<Ty> finalList = [];
+  for (var item in myList) {
+    if (!finalList.contains(item)) {
+      finalList.add(item);
+    }
+  }
+  return finalList;
+}
