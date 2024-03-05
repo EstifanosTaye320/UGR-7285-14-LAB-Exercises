@@ -9,6 +9,12 @@ class Car {
   }
 }
 
+class ElectricalCar extends Car {
+  const ElectricalCar(super.brand, super.model, super.year, this.batteryLife);
+
+  final String batteryLife;
+}
+
 void main() {
   Car fordCar = Car("Brand", 'model', 'year');
   print(fordCar.brand);
