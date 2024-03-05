@@ -1,7 +1,7 @@
 import 'dart:math';
 
 void myFonnyFunction() {
-  int someRand = Random().nextInt(3) + 1;
+  int someRand = Random().nextInt(2) + 1;
   switch (someRand) {
     case 1:
       throw Exception('some exception');
@@ -19,5 +19,7 @@ void main() {
     } else {
       print('other Exception' + e.toString());
     }
+  } finally {
+    print('runn always');
   }
 }
