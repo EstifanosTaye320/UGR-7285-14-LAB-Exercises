@@ -2,7 +2,6 @@ import 'dart:math';
 
 void main() {
   int number = Random().nextInt(7) + 1;
-
   switch (number) {
     case 1:
       print('Monday');
@@ -25,5 +24,17 @@ void main() {
     case 7:
       print('Sunday');
       break;
+  }
+
+  int first = 0;
+  int second = 1;
+  int? suum;
+  print(first);
+  print(second);
+  for (var i = 0; i < 8; i++) {
+    suum = first + second;
+    print(suum);
+    first = second;
+    second = suum;
   }
 }
