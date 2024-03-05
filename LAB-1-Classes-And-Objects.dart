@@ -3,6 +3,10 @@ class Car {
   final String brand;
   final String model;
   final String year;
+
+  void startCar() {
+    print('Vroom Vroom');
+  }
 }
 
 void main() {
