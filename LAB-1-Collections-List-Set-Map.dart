@@ -9,3 +9,8 @@ int? getHighest(List<int> numList) {
 
   return highest;
 }
+
+void getKeysAndValues(Map<Object, Object> objMap) {
+  print(objMap.keys);
+  print(objMap.values);
+}
