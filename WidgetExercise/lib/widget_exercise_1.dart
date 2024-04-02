@@ -14,20 +14,45 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Car Sells'),
         ),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        body: Column(
           children: [
             Container(
-              margin: const EdgeInsets.all(5.0),
-              width: double.infinity,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: Image.asset("assets/Untitled.jpg"),
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    color: Colors.white,
+                    child: Image.asset("assets/Untitled.jpg"),
+                  ),
+                ],
               ),
+            ),
+            const Text(
+              "1975 this is the 1999 terminal",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildIconRow(Icons.link, "content"),
+                _buildIconRow(Icons.thumb_down, "thumb"),
+                _buildIconRow(Icons.shop, "shop"),
+              ],
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildIconRow(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon),
+        const SizedBox(width: 8.0),
+        Text(text),
+      ],
     );
   }
 }
