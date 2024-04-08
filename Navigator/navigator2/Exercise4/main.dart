@@ -29,13 +29,14 @@ class _CourseAppState extends State<CourseApp> {
         title: "Introduction To Programming",
         description: "Computer Organization, Architecture, Programming"),
     Course(
-        code: "SiTE-001",
-        title: "Introduction To Programming",
-        description: "Computer Organization, Architecture, Programming"),
+        code: "SiTE-002",
+        title: "Programming of computers",
+        description: "You will learn to program computers in this course"),
     Course(
-        code: "SiTE-001",
-        title: "Introduction To Programming",
-        description: "Computer Organization, Architecture, Programming")
+        code: "SiTE-003",
+        title: "Basics of Electrical engineering",
+        description:
+            "You will learn how electrical circuts work in this course")
   ];
 
   @override
