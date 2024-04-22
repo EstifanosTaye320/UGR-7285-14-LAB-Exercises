@@ -2,7 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(BlocProvider(
+    create: (context) => CounterBloc(),
+    child: const MyApp(),
+  ));
+}
+
+abstract class CounterEvent {}
+
+final class CounterIncrementPressed extends CounterEvent {}
+
+final class CounterDecrementPressed extends CounterEvent {}
+
+class CounterBloc extends Bloc<CounterEvent, int> {
+  CounterBloc() : super(0) {
+    on<CounterIncrementPressed>((event, emit) => emit(state + 1));
+    on<CounterDecrementPressed>((event, emit) => emit(state - 1));
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -53,17 +69,40 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            BlocBuilder<CounterBloc, int>(
+              builder: (context, state) {
+                return Text(
+                  state.toString(),
+                  style: Theme.of(context).textTheme.headlineMedium,
+                );
+              },
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              BlocProvider.of<CounterBloc>(context)
+                  .add(CounterIncrementPressed());
+            },
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              BlocProvider.of<CounterBloc>(context)
+                  .add(CounterDecrementPressed());
+            },
+            tooltip: 'Decrement',
+            child: const Icon(Icons.remove),
+          ),
+        ],
       ),
     );
   }
