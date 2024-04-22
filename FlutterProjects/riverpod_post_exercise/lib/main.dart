@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 import 'dart:convert';
-import 'package:todo_list_provider/Screens/todo_page.dart';
 
 void main() {
   runApp(
@@ -19,9 +17,10 @@ class TodoModel extends ChangeNotifier {
   List<dynamic> items = [];
 
   Future<List<dynamic>> fetchItems() async {
-    final response = await http.get(Uri.parse('https://dummyjson.com/todos'));
+    final response =
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/todos'));
     if (response.statusCode == 200) {
-      return json.decode(response.body)['todos'];
+      return json.decode(response.body);
     } else {
       throw Exception('Failed to load items');
     }

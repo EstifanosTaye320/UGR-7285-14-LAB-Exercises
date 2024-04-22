@@ -49,7 +49,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
                     ),
                   ],
                 ),
-                title: Text(state[index]['todo']),
+                title: Text(state[index]['title']),
               ),
             );
           },

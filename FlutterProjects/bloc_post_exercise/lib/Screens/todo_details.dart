@@ -8,7 +8,7 @@ class TodoDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(todo["todo"]),
+        title: Text(todo["title"]),
       ),
       body: Center(
         child: Column(

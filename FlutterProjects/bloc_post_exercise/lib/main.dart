@@ -31,9 +31,10 @@ class TodoBloc extends Bloc<TodoEvent, List<dynamic>> {
     // on<TodoDecrementPressed>((event, emit) => emit(state - 1));
 
     Future<List<dynamic>> fetchItems() async {
-      final response = await http.get(Uri.parse('https://dummyjson.com/todos'));
+      final response = await http
+          .get(Uri.parse('https://jsonplaceholder.typicode.com/todos'));
       if (response.statusCode == 200) {
-        return json.decode(response.body)['todos'];
+        return json.decode(response.body);
       } else {
         throw Exception('Failed to load items');
       }
