@@ -1,58 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:todo_list_provider/Screens/todo_details.dart';
-import 'package:todo_list_provider/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo_list_riverpod/Screens/todo_details.dart';
+import 'package:todo_list_riverpod/main.dart';
 
-class ItemListWidget extends StatefulWidget {
+class ItemListWidget extends ConsumerStatefulWidget {
   const ItemListWidget({super.key});
 
   @override
-  State<ItemListWidget> createState() => _ItemListWidgetState();
+  ConsumerState<ItemListWidget> createState() => _ItemListWidgetState();
 }
 
-class _ItemListWidgetState extends State<ItemListWidget> {
+class _ItemListWidgetState extends ConsumerState<ItemListWidget> {
   @override
   Widget build(BuildContext context) {
+    List<dynamic> items = ref.watch(TodoNotifierProvider);
+
+    if (items.isEmpty) {
+      ref.watch(TodoNotifierProvider.notifier).initState();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Item List'),
       ),
-      body: Consumer<TodoModel>(builder: (context, value, child) {
-        if (value.items.isEmpty) {
-          value.initState();
-        }
-        return ListView.builder(
-          itemCount: value.items.length,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            TodoDetails(todo: value.items[index])));
-              },
-              child: ListTile(
-                leading: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Checkbox(
-                      value: value.items[index]['completed'],
-                      onChanged: (val) {
-                        value.editChecked(val, index);
-                      },
-                    ),
-                    Text(
-                      '${value.items[index]['id']}',
-                    ),
-                  ],
-                ),
-                title: Text(value.items[index]['title']),
+      body: ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          TodoDetails(todo: items[index])));
+            },
+            child: ListTile(
+              leading: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Checkbox(
+                    value: items[index]['completed'],
+                    onChanged: (val) {
+                      ref
+                          .watch(TodoNotifierProvider.notifier)
+                          .editChecked(val, index);
+                    },
+                  ),
+                  Text(
+                    '${items[index]['id']}',
+                  ),
+                ],
               ),
-            );
-          },
-        );
-      }),
+              title: Text(items[index]['title']),
+            ),
+          );
+        },
+      ),
     );
   }
 }

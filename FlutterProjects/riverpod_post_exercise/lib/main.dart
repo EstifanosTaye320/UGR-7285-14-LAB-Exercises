@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:todo_list_riverpod/Screens/todo_page.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => TodoModel(),
-      child: const MaterialApp(
+    const ProviderScope(
+      child: MaterialApp(
         home: ItemListWidget(),
       ),
     ),
   );
 }
 
-class TodoModel extends ChangeNotifier {
-  List<dynamic> items = [];
+class TodoNotifier extends StateNotifier<List<dynamic>> {
+  TodoNotifier() : super([]);
 
   Future<List<dynamic>> fetchItems() async {
     final response =
@@ -34,12 +35,15 @@ class TodoModel extends ChangeNotifier {
   }
 
   void initState() async {
-    items = await extract();
-    notifyListeners();
+    state = await extract();
   }
 
   void editChecked(val, index) {
-    items[index]["completed"] = val;
-    notifyListeners();
+    List<dynamic> updatedList = List.from(state);
+    updatedList[index]["completed"] = val;
+    state = updatedList;
   }
 }
+
+final TodoNotifierProvider =
+    StateNotifierProvider<TodoNotifier, List<dynamic>>((ref) => TodoNotifier());
