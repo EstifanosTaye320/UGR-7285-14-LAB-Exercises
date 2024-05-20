@@ -3,39 +3,47 @@ package com.example.xmlcounter
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 
-class MainActivity : AppCompatActivity() {
 
-    private lateinit var counterText: TextView
-    private var counter = 0
+class MainActivity : ComponentActivity() {
+    private lateinit var counterTextView: TextView
+    private lateinit var incrementButton: Button
+    private lateinit var resetButton: Button
+    private lateinit var decrementButton: Button
+    private var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        counterText = findViewById(R.id.counterText)
-        val incrementButton = findViewById<Button>(R.id.incrementButton)
-        val resetButton = findViewById<Button>(R.id.resetButton)
-        val decrementButton = findViewById<Button>(R.id.decrementButton)
+        // Initialize views
+        counterTextView = findViewById(R.id.counterTextView)
+        incrementButton = findViewById(R.id.incrementButton)
+        resetButton = findViewById(R.id.resetButton)
+        decrementButton = findViewById(R.id.decrementButton)
 
+        // Set initial counter value
+        counterTextView.text = count.toString()
+
+        // Increment button click listener
         incrementButton.setOnClickListener {
-            counter++
-            updateCounterText()
+            count++
+            counterTextView.text = count.toString()
         }
 
+        // Reset button click listener
         resetButton.setOnClickListener {
-            counter = 0
-            updateCounterText()
+            count = 0
+            counterTextView.text = count.toString()
         }
 
+        // Decrement button click listener
         decrementButton.setOnClickListener {
-            counter--
-            updateCounterText()
+            count--
+            counterTextView.text = count.toString()
         }
     }
 
-    private fun updateCounterText() {
-        counterText.text = counter.toString()
-    }
+
 }
